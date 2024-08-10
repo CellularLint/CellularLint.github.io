@@ -168,13 +168,50 @@
         <h2 class="title is-3">NAS Message Ciphering</h2>
         <div class="content has-text-justified">
           <p>
-            Finding 1. NAS message ciphering. After the completion of security mode procedures, 
-            the specifications suggest that, except for a few messages, all messages should be integrity 
-            protected and ciphered. However, on two occasions (shown in Figure 6), it is emphasized that 
+            <b>Finding 1.</b> NAS message ciphering. After the completion of security mode procedures, 
+            the specifications suggest that, except for a few messages, all messages should be integrity-protected
+            and ciphered. However, on two occasions (shown in Figure 6), it is emphasized that 
             all messages after the security procedure should be integrity-protected and ciphered. Failure 
             to enforce integrity and ciphering is a serious design flaw 
             and can leave implementations subject to vulnerabilities and 
             interoperability issues.
+          </p>
+          <p>
+            <b>Inconsistency to exploit.</b> In the case of T1, the specification 
+            states after the security context has been established, the UE
+            shall cipher and integrity protect all NAS signaling messages
+            with selected NAS ciphering and integrity algorithms.
+            However, T1 does not mention the scenarios where the UE
+            accepts plain-text messages. On the contrary, T2 is more
+            lucid and explicitly mentions such scenarios. Due to this
+            inconsistency of not explicitly mentioning exception cases, an
+            implementation might accept unexpected plain-text messages
+            even after the security context is established. Therefore, we
+            design an attack based on this scenario.
+            Attack. For the attack, the adversary connects with a
+            victim UE through a fake base station to send plain-text 
+            identity_request or authentication_request [53].
+            Similarly, the attacker can overshadow downlink packets to
+            create plain-text messages. The affected UE accepts, processes and responds to the messages.
+            <b>Investigation.</b> In open-source implementations, we found all
+            implementations accepting plain-text authentication and
+            identity requests even after the security context has been
+            established. On the other hand, on commercial UEs, we found
+            4 UEs accepting and responding to such plain-text messages
+            (Table 6). Interestingly, for a very recent UE (Google Pixel
+            7a, 2023), plain-text authentication_request is accepted,
+            whereas plain-text identity_request is not accepted. This
+            is another interesting scenario where vendors try to implement
+            different behaviors for different exception case messages.
+            Impact. The impact of accepting plain-text or integrity-failed
+            NAS messages can be catastrophic and can be exploited by
+            attackers to fingerprint users, traceability, and denial of service
+            attacks. Note that DoLTEst [53] also reports several UEs
+            accepting unprotected messages after the security context
+            has been established, albeit from the implementation testing
+            perspective. We, on the other hand, show that this issue in
+            different implementations can be traced to the inconsistent
+            behavior defined in the standards.
           </p>
         </div>
       </div>
