@@ -258,6 +258,65 @@
 <!-- End Condition Over Integrity Check -->
 
 
+<!-- Integrity check failure -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">3. Integrity check failure</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> We found two conflicting PoS where different statements are found for failed integrity
+            checks of the control plane messages (Figure 8). Following
+            this PoS to 4G security specification, ultimately, we found
+            three (one segment is common) instances of different statements.
+            Two of them clearly suggest that messages that have faulty
+            MAC should be discarded, whereas the third one directs to a
+            slightly flexible strategy suggesting the processing
+            of certain messages even if they fail integrity checks.
+          </p>
+          <p>
+            <b>Inconsistency to exploit:</b>  In T1, whenever there are some 
+            exceptional NAS messages that can trigger further MME actions,
+            even with failed integrity, the specification mentions that.
+            However, in T2 for RRC, it does not specify such exceptional
+            cases, though such exceptional cases exist, for instance, when
+            RRC_connection_resume fails an integrity check, rather
+            than just discarding, there are further steps. Through further
+            manual analysis, we find these cases are not mentioned in
+            the TS 33.501 (Security Architecture and Procedures for 5G
+            Systems) specification, but in TS 38.331 (RRC Specification),
+            which were not included in the scope of CellularLint. In a
+            practical scenario, an implementor would use the RRC specification
+            first, which clearly states exceptional messages with
+            failed integrity. But later on, when the security specifications
+            would be taken into account, the implementor would find it
+            confusing with a more strict description. There is a possibility
+            that such inconsistency may not directly result in vulnerabilities. 
+            Still, it may cause differing implementations as both
+            specifications cannot be logically taken into consideration
+            at the same time. Hence, some implementations might not
+            properly follow the integrity failing scenarios.
+          </p>
+          <p>
+            <b>Investigation:</b> In open-source implementations, we found
+            1 implementation accepting integrity-failed messages. On 
+            the contrary, in commercial UEs, none of the UEs accept
+            control-plane messages with failed integrity. However, in our
+            investigation, we found another interesting behavior: 16 UEs
+            dropped the connection after receiving an RRC packet with
+            failed integrity, whereas 1 UE did not (Table 6). These inconsistent
+            UE behaviors can be traced back to T2, which does not
+            properly specify the exception cases and what to do in such scenarios.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Integrity check failure -->
+
+
 <!-- Image carousel -->
 <!-- <section class="hero is-small">
   <div class="hero-body">
