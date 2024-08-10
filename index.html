@@ -317,6 +317,56 @@
 <!-- End Integrity check failure -->
 
 
+<!-- NCC reusage -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">4. NCC Reusage</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> We found a conflicting PoS in the 
+            5G Security specification where two different conditions are
+            expressed for the validity of the Next hop Chaining Counter
+            (NCC) (shown in Figure 9). NCC is used for cryptographic
+            derivation of the AS security algorithms and, hence, is a very
+            important identifier. One segment dictates that the NCC value
+            has to be fresh and previously unused to be accepted. On the
+            contrary, the other segment claims that the only condition for
+            acceptance is that the NCC value has to be different.
+          </p>
+          <p>
+            <b>Implication:</b>  NCC and NH are critical parameters that are
+            used to establish AS security and derive Kgnb. These parameters are used
+            during the RRC_Reestablish procedure to
+            re-establish the RRC connection. This procedure is particularly
+            important during handover. The expectation is that these
+            session key creation parameters (NCC and NH) would be
+            fresh and unused to create diverse keys (precisely described
+            in T1). This is an important assumption ensuring forward and
+            future secrecy guarantees of the keys. Forward and future
+            secrecy ensures that the protocol defends the past and future
+            sessions even if the current session is compromised [16].
+            These parameters are essentially used as nonces to ensure the
+            diversification of the keys. However, if the fresh and unused
+            NCC/NH value usage is not mandated, then the forward and
+            future secrecy guarantees can be broken. Furthermore, as the
+            RRC_Reestablish message (containing these parameters) is
+            unencrypted, the attacker can easily detect the sessions where
+            the same NCC/NH values are used for key derivation.
+          </p>
+          <p>
+            <b>Investigation:</b>  We found that none of the open-source implementations
+            properly check these parameters and just accept if they differ from the previously accepted ones.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End NCC reusage -->
+
+
 <!-- Image carousel -->
 <!-- <section class="hero is-small">
   <div class="hero-body">
