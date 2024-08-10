@@ -336,7 +336,7 @@
             acceptance is that the NCC value has to be different.
           </p>
           <p>
-            <b>Implication:</b>  NCC and NH are critical parameters that are
+            <b>Implication:</b> NCC and NH are critical parameters that are
             used to establish AS security and derive Kgnb. These parameters are used
             during the RRC_Reestablish procedure to
             re-establish the RRC connection. This procedure is particularly
@@ -365,6 +365,54 @@
   </div>
 </section>
 <!-- End NCC reusage -->
+
+
+<!-- GUTI deletion -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">5. GUTI Deletion</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> On many occasions, when a reject
+            message is received from the network, the UE updates
+            its EPS/5GS status, clears the context, and subsequently
+            moves to a deregistered state. We observe that in many
+            cases, a rejection cause TC in a reject message RM would
+            suggest the UE to clear the context and move to deregistered
+            state while the same cause TC would keep the UE in registered
+            state without clearing the security context (shown in Figure 10).
+            For example, 5GM cause #13 received through registration_reject
+            suggests the UE to delete GUTI, TAI, ngKSI while the same cause 
+            received through tau_reject or service_reject message would keep the
+            UE in a registered state without deleting the context. A cross-examination
+            may suggest that since the messages are different, the same cause
+            may trigger different behavior. However, other
+            cause values such as #12 (tracking area not allowed) trigger
+            similar behavior and state transition for different reject messages.
+            Thus, it concretely verifies the conflicting suggestions about security context.
+          </p>
+          <p>
+            <b>Inconsistency to Exploit:</b> GUTI (Globally Unique Temporary ID)
+            is a kind of temporary ID used to identify UEs. Each UE has a couple
+            of different kinds of unique IDs, like IMSI, IMEI, etc.
+            These sorts of temporary identifiers, like GUTI, are used to prevent 
+            attackers from tracking users. However, if these identifiers are not changed or reset, 
+            this can cause several privacy issues. An adversary can utilize old GUTI to
+            track a UE through a linkability attack, violating privacy [32].
+          </p>
+          <p>
+            <b>Investigation:</b> In commercial UEs, we found a total of 16 devices not properly
+            deleting GUTI for these reject messages (Table 6). One recent UE (Apple iPhone 12 Pro),
+            however, deletes the security context with GUTI after receiving service_reject.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End GUTI deletion -->
 
 
 <!-- Image carousel -->
