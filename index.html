@@ -165,10 +165,10 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">NAS Message Ciphering</h2>
+        <h2 class="title is-3">1. NAS Message Ciphering</h2>
         <div class="content has-text-justified">
           <p>
-            <b>Finding 1.</b> NAS message ciphering. After the completion of security mode procedures, 
+            <b>Finding:</b> After the completion of security mode procedures, 
             the specifications suggest that, except for a few messages, all messages should be integrity-protected
             and ciphered. However, on two occasions (shown in Figure 6), it is emphasized that 
             all messages after the security procedure should be integrity-protected and ciphered. Failure 
@@ -177,7 +177,7 @@
             interoperability issues.
           </p>
           <p>
-            <b>Inconsistency to exploit.</b> In the case of T1, the specification 
+            <b>Inconsistency to exploit:</b> In the case of T1, the specification 
             states after the security context has been established, the UE
             shall cipher and integrity protect all NAS signaling messages
             with selected NAS ciphering and integrity algorithms.
@@ -193,7 +193,9 @@
             identity_request or authentication_request [53].
             Similarly, the attacker can overshadow downlink packets to
             create plain-text messages. The affected UE accepts, processes and responds to the messages.
-            <b>Investigation.</b> In open-source implementations, we found all
+          </p>
+          <p>
+            <b>Investigation:</b> In open-source implementations, we found all
             implementations accepting plain-text authentication and
             identity requests even after the security context has been
             established. On the other hand, on commercial UEs, we found
@@ -219,6 +221,41 @@
   </div>
 </section>
 <!-- End NAS Message Ciphering -->
+
+<!-- Condition Over Integrity Check -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">2. Condition Over Integrity Check</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> On many occasions, the UE sets the counter for 
+            "SIM/USIM considered for GPRS/non-GPRS/5GS services" to implement
+            a specific maximum value (Figure 7). While this flexibility is acceptable
+            and standard practice, the precondition to check the integrity
+            of the received message is often neglected.
+          </p>
+          <p>
+            <b>Inconsistency to exploit:</b> In the case of T1, the protocol specifies 
+            successful integrity checking by the NAS. However, in
+            T2, this integrity checking is skipped. These PoS are related to
+            attach_reject and detach_request. However, we have
+            also found instances of network-initiated detach_request,
+            where there are inconsistencies. As the inconsistency is related
+            to the integrity checking of messages, the attack steps and impact are the same as finding 1.
+          </p>
+          <p>
+            <b>Investigation:</b> In the case of open-source implementation, 
+            we see that all the open-source implementations in both 4G and 5G are vulnerable.
+            However, in the case of commercial UEs, there were no instances of vulnerable behavior.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Condition Over Integrity Check -->
 
 
 <!-- Image carousel -->
