@@ -177,12 +177,12 @@
             interoperability issues.
           </p>
           <p>
-            <b>Inconsistency to exploit:</b> In the case of T1, the specification 
+            <b>Inconsistency to exploit:</b> In the case of T<sub>1</sub>, the specification 
             states after the security context has been established, the UE
             shall cipher and integrity protect all NAS signaling messages
             with selected NAS ciphering and integrity algorithms.
-            However, T1 does not mention the scenarios where the UE
-            accepts plain-text messages. On the contrary, T2 is more
+            However, T<sub>1</sub> does not mention the scenarios where the UE
+            accepts plain-text messages. On the contrary, T<sub>2</sub> is more
             lucid and explicitly mentions such scenarios. Due to this
             inconsistency of not explicitly mentioning exception cases, an
             implementation might accept unexpected plain-text messages
@@ -237,9 +237,9 @@
             of the received message is often neglected.
           </p>
           <p>
-            <b>Inconsistency to exploit:</b> In the case of T1, the protocol specifies 
+            <b>Inconsistency to exploit:</b> In the case of T<sub>1</sub>, the protocol specifies 
             successful integrity checking by the NAS. However, in
-            T2, this integrity checking is skipped. These PoS are related to
+            T<sub>2</sub>, this integrity checking is skipped. These PoS are related to
             attach_reject and detach_request. However, we have
             also found instances of network-initiated detach_request,
             where there are inconsistencies. As the inconsistency is related
@@ -276,10 +276,10 @@
             of certain messages even if they fail integrity checks.
           </p>
           <p>
-            <b>Inconsistency to exploit:</b>  In T1, whenever there are some 
+            <b>Inconsistency to exploit:</b>  In T<sub>1</sub>, whenever there are some 
             exceptional NAS messages that can trigger further MME actions,
             even with failed integrity, the specification mentions that.
-            However, in T2 for RRC, it does not specify such exceptional
+            However, in T<sub>2</sub> for RRC, it does not specify such exceptional
             cases, though such exceptional cases exist, for instance, when
             RRC_connection_resume fails an integrity check, rather
             than just discarding, there are further steps. Through further
@@ -306,7 +306,7 @@
             investigation, we found another interesting behavior: 16 UEs
             dropped the connection after receiving an RRC packet with
             failed integrity, whereas 1 UE did not (Table 6). These inconsistent
-            UE behaviors can be traced back to T2, which does not
+            UE behaviors can be traced back to T<sub>2</sub>, which does not
             properly specify the exception cases and what to do in such scenarios.
           </p>
         </div>
@@ -337,13 +337,13 @@
           </p>
           <p>
             <b>Implication:</b> NCC and NH are critical parameters that are
-            used to establish AS security and derive Kgnb. These parameters are used
+            used to establish AS security and derive K<sub>gnb</sub>. These parameters are used
             during the RRC_Reestablish procedure to
             re-establish the RRC connection. This procedure is particularly
             important during handover. The expectation is that these
             session key creation parameters (NCC and NH) would be
             fresh and unused to create diverse keys (precisely described
-            in T1). This is an important assumption ensuring forward and
+            in T<sub>1</sub>). This is an important assumption ensuring forward and
             future secrecy guarantees of the keys. Forward and future
             secrecy ensures that the protocol defends the past and future
             sessions even if the current session is compromised [16].
@@ -413,6 +413,167 @@
   </div>
 </section>
 <!-- End GUTI deletion -->
+
+
+<!-- TAU and detach collision -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">6. TAU and Detach Collision</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> We found a PoS of conflicting directions 
+            when TAU and detach procedure collide (shown in Figure 11).
+            The first one states that the tracking_area_update procedure
+            shall be aborted and the detach procedure shall be progressed. 
+            On the other hand, the second segment states that the detach 
+            procedure shall be aborted and re-initiated while the 
+            tracking_area_update procedure is fully performed.
+          </p>
+          <p>
+            <b>Inconsistency to Exploit:</b> n attacker can achieve
+            downgrade/denial-of-service by injecting detach_request 
+            through fake-base-stations or signal-injection attacks [34]. In
+            this case, an implementation that aims to implement both
+            scenarios can exacerbate the situation by creating a deadlock
+            state. As the statements are mutually exclusive either way,
+            an implementation violates the specification. In our investigation
+            of commercial implementation, we found all the UEs
+            progress with the tracking_area_update procedure when
+            such collision occurs (Table 6).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End TAU and detach collision -->
+
+
+<!-- Sub-state transition confusion -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">7. Sub-state Transition Confusion</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> When attach_reject message is received with the emm
+            cause #14, the 4G specification has differing state transition
+            descriptions (shown in Figure 1). This certainly can cause
+            confusion in implementation design.
+          </p>
+          <p>
+            <b>Investigation:</b> While looking further into open-source implementations,
+            we found a very interesting scenario regarding this. In srsRAN, we see that 
+            the developers tried to implement both of them. We show the code snippet of srsRAN
+            in Figure 12. Here, we can see that both of the conditional statements contain the 
+            same cause (lines 1 and 6) but have different sub-state transitions (lines 3 and 7).
+            Of course, UE will go to the EMM_DEREGISTERED.PLMN_SEARCH sub-state due to the obscurity
+            of the first "if". Such conflicts can potentially cause interoperability issues, 
+            leaving a possibility for further synchronization problems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Sub-state transition confusion -->
+
+
+<!-- Registration counter reset -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">8. Registration Counter Reset</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> When a UE receives a registration_reject message with 
+            several cause such as #11 (PLMN not allowed) it resets the registration attempt counter.
+            For the same cause value received through service_reject message, the UE should reset the 
+            associated service request attempt counter. However, this directive is missing in the specification,
+            although in the same 5G NAS specification, the general guideline for service_reject with a list of causes
+            clearly suggests resetting the counter. Failure to clarify this in corresponding cause descriptions 
+            has an impact on interoperability as some implementations take the general guideline into account 
+            while others focus on specific scenarios.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Registration counter reset -->
+
+
+<!-- Timer expiry as a precondition -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">9. Timer Expiry as a Precondition</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> When a registration_reject is received in case of 5G Standalone Non-Public Network (SNPN),
+            the "list of subscriber data" is considered invalid until switch off or entry update or timer T3245 expiration.
+            However, the authentication_reject under same condition does not consider the time T3245 expiry for the
+            list validity. This is another conundrum causing interoperability issues.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Timer expiry as a precondition -->
+
+
+<!-- Unutilized service attempt counter -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">10. Unutilized Service Attempt Counter</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> We observe that the service request attempt counter is less utilized compared
+            to the registration attempt or tracking area update attempt counter for similar events.
+            When a registration attempt is rejected with proper cause value, the counter is reset, but for many
+            service_reject the service attempt counter is completely ignored in the description.
+            This may potentially cause interoperability among different vendor implementations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Unutilized service attempt counter -->
+
+
+<!-- PDCP counter set -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">11. PDCP Counter Set</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Finding:</b> We observed that for the protection of RRC messages while transitioning
+            away from RRC_INACTIVE to RRC_CONNECTED, UE derives a set of keys such as K<sub>RRCint</sub>, K<sub>RRCenc</sub>, 
+            and so on. However, despite having similar actions of key deriving for connection resume in CM-IDLE,
+            the UE additionally resets the PDCP count to 0 and activates new AS keys in PDCP layer. This final 
+            action is totally skipped in the first case (Fig 13).
+          </p>
+          <p>
+            <b>Impact:</b> his subtle miss can have a significant de-synchronization impact if the 
+            COTS implementation considers one of them ignoring the other.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End PDCP counter set -->
 
 
 <!-- Image carousel -->
