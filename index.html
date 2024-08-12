@@ -570,15 +570,16 @@
           </p>
           <div class="custom-box">
             <div class="custom-text-block">
-                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
-                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                <p>T<sub>1</sub>: Whenever an ATTACH REJECT message with the EMM cause #14 "EPS
+                  services not allowed in this PLMN" is received by the UE · · · 
+                  Additionally the attach attempt counter shall be reset when the UE is in substate
+                  EMMDEREGISTERED.ATTEMPTING-TO-ATTACH.
                 </p>
             </div>
             <div class="custom-text-block">
-                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
-                  the MME are sent integrity protected and except for the messages specified in
-                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
-                  sent ciphered
+                <p>T<sub>2</sub>: #14 (EPS services not allowed in this PLMN); The UE shall set the EPS
+                  update status to EU3 ROAMING NOT ALLOWED · · · the UE shall reset the
+                  attach attempt counter and enter the state EMM-DEREGISTERED.PLMN-SEARCH.
                 </p>
             </div>
           </div>
