@@ -516,6 +516,20 @@
             procedure shall be aborted and re-initiated while the 
             tracking_area_update procedure is fully performed.
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
+                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
+                  the MME are sent integrity protected and except for the messages specified in
+                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
+                  sent ciphered
+                </p>
+            </div>
+          </div>
           <p>
             <b>Inconsistency to Exploit:</b> n attacker can achieve
             downgrade/denial-of-service by injecting detach_request 
@@ -549,6 +563,20 @@
             descriptions (shown in Figure 1). This certainly can cause
             confusion in implementation design.
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
+                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
+                  the MME are sent integrity protected and except for the messages specified in
+                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
+                  sent ciphered
+                </p>
+            </div>
+          </div>
           <p>
             <b>Investigation:</b> While looking further into open-source implementations,
             we found a very interesting scenario regarding this. In srsRAN, we see that 
@@ -584,6 +612,20 @@
             has an impact on interoperability as some implementations take the general guideline into account 
             while others focus on specific scenarios.
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
+                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
+                  the MME are sent integrity protected and except for the messages specified in
+                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
+                  sent ciphered
+                </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -605,6 +647,20 @@
             However, the authentication_reject under same condition does not consider the time T3245 expiry for the
             list validity. This is another conundrum causing interoperability issues.
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
+                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
+                  the MME are sent integrity protected and except for the messages specified in
+                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
+                  sent ciphered
+                </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -627,6 +683,20 @@
             service_reject the service attempt counter is completely ignored in the description.
             This may potentially cause interoperability among different vendor implementations.
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
+                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
+                  the MME are sent integrity protected and except for the messages specified in
+                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
+                  sent ciphered
+                </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -649,6 +719,20 @@
             the UE additionally resets the PDCP count to 0 and activates new AS keys in PDCP layer. This final 
             action is totally skipped in the first case (Fig 13).
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
+                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
+                  the MME are sent integrity protected and except for the messages specified in
+                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
+                  sent ciphered
+                </p>
+            </div>
+          </div>
           <p>
             <b>Impact:</b> This subtle miss can have a significant de-synchronization impact if the 
             COTS implementation considers one of them ignoring the other.
