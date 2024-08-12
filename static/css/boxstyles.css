@@ -3,7 +3,7 @@
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    background: #f0f0f0; /* Professional light grey */
+    background: #e6e6f0; /* Light greyish-purple background */
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     color: #333; /* Dark grey for text */
@@ -12,7 +12,7 @@
 .custom-text-block {
     margin-bottom: 20px;
     padding: 20px;
-    background: linear-gradient(135deg, #e2e2e2, #ffffff); /* Subtle gradient for a more refined look */
+    background: #f3f0ff; /* Soft lavender background */
     border-radius: 10px;
     border: 1px solid #dcdcdc; /* Light grey border for subtle separation */
     font-size: 1em; /* Normal font size */
@@ -28,13 +28,14 @@
 .custom-text-block p {
     font-size: 1em;
     line-height: 1.2em;
+    margin: 0;
+    color: #666666; /* Slightly darker grey for text */
 }
 
-/*.custom-text-block:nth-child(2) {
-    background: #f9f9f9; /* Very light grey for variation */
+.custom-text-block:nth-child(2) {
+    background: #ece7f8; /* A slightly darker lavender for variation */
 }
 
 .custom-box .custom-text-block:last-child {
     margin-bottom: 0;
 }
-*/
