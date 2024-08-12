@@ -620,15 +620,23 @@
           </p>
           <div class="custom-box">
             <div class="custom-text-block">
-                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
-                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                <p>T<sub>1</sub>: #73 (Serving network not authorized). · · · 
+                  The UE shall delete the list of equivalent PLMNs,
+                  shall reset the registration attempt counter. For
+                  3GPP access the UE shall enter the state 5GMM-DEREGISTERED.PLMN-SEARCH, and for 
+                  non-3GPP access the UE shall enter state 5GMM-DEREGISTERED.LIMITED-SERVICE. The UE
+                  shall store the PLMN identity in the forbidden PLMN
+                  list as specified in subclause 5.3.13A and if the UE
+                  is configured to use timer T3245 then the UE shall
+                  start timer T3245 and proceed as described in clause 5.3.19a.1.
                 </p>
             </div>
             <div class="custom-text-block">
-                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
-                  the MME are sent integrity protected and except for the messages specified in
-                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
-                  sent ciphered
+                <p>T<sub>2</sub>: #73 (Serving network not authorized). · · · The UE shall
+                  delete the list of equivalent PLMNs and store the PLMN
+                  identity in the forbidden PLMN list as specified in subclause 5.3.13A 
+                  and if the UE is configured to use timer
+                  T3245 then the UE shall start timer T3245 and proceed as described in clause 5.3.19a.1
                 </p>
             </div>
           </div>
@@ -655,15 +663,23 @@
           </p>
           <div class="custom-box">
             <div class="custom-text-block">
-                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
-                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                <p>T<sub>1</sub>: In case of SNPN, if the UE is neither registered for 
+                  onboarding services in SNPN nor performing initial registration for 
+                  onboarding services in SNPN and the UE
+                  supports access to an SNPN using credentials from a credentials holder,
+                  the UE shall consider the selected entry
+                  of the "list of subscriber data" as invalid for 3GPP access
+                  until the UE is switched off or the entry is updated.
                 </p>
             </div>
             <div class="custom-text-block">
-                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
-                  the MME are sent integrity protected and except for the messages specified in
-                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
-                  sent ciphered
+                <p>T<sub>2</sub>: In case of SNPN, if the UE is not performing 
+                  initial registration for onboarding services in SNPN and
+                  the UE supports access to an SNPN using credentials
+                  from a credentials holder, the UE shall consider the
+                  selected entry of the "list of subscriber data" as invalid
+                  for 3GPP access until the UE is switched off, the entry
+                  is updated or the timer T3245 expires as described in clause5.3.19a.2.
                 </p>
             </div>
           </div>
