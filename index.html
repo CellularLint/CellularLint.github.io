@@ -518,20 +518,25 @@
           </p>
           <div class="custom-box">
             <div class="custom-text-block">
-                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
-                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                <p>T<sub>1</sub>: Tracking area updating and detach procedure collision 
+                  EPS detach containing detach type "re-attach required" 
+                  or "re-attach not required": If the UE receives a DETACH REQUEST message 
+                  before the tracking area updating procedure has been completed, the tracking area updating
+                  procedure shall be aborted and the detach procedure shall be progressed.
                 </p>
             </div>
             <div class="custom-text-block">
-                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
-                  the MME are sent integrity protected and except for the messages specified in
-                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
-                  sent ciphered
+                <p>T<sub>2</sub>: If a cell change into a new tracking area 
+                  that is not in the stored TAI list occurs before the UE initiated 
+                  detach procedure is completed, the UE proceeds as follows: 
+                  1) If the detach procedure was initiated for reasons other 
+                  than removal of the USIM or the UE is to be switched off, the detach procedure shall
+                  be aborted and re-initiated after successfully performing a tracking area updating procedure.
                 </p>
             </div>
           </div>
           <p>
-            <b>Inconsistency to Exploit:</b> n attacker can achieve
+            <b>Inconsistency to Exploit:</b> An attacker can achieve
             downgrade/denial-of-service by injecting detach_request 
             through fake-base-stations or signal-injection attacks [34]. In
             this case, an implementation that aims to implement both
@@ -721,15 +726,25 @@
           </p>
           <div class="custom-box">
             <div class="custom-text-block">
-                <p>T<sub>1</sub>: From this time onward the UE shall cipher and integrity protect all NAS
-                signalling messages with the selected NAS ciphering and NAS integrity algorithms.
+                <p>T<sub>1</sub>: For protection of all RRC messages except 
+                  RRCReject message following the sent RRCResumeRequest message, 
+                  the UE shall derive a K<sub>NG−RAN</sub><sup>*</sup> using the target PCI, target ARFCN-DL/EARFCN-DL
+                  and the KgNB/NH based on either a horizontal key derivation or
+                  a vertical key derivation as defined in clause 6.9.2.1.1 and Annex
+                  A.11/Annex A.12. The UE shall further derive K<sub>RRCint</sub>, K<sub>RRCenc</sub>,
+                  K<sub>UPenc</sub> (optionally), and K<sub>UPint</sub> (optionally) from the newly derived K<sub>NG−RAN</sub><sup>*</sup>.
                 </p>
             </div>
             <div class="custom-text-block">
-                <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
-                  the MME are sent integrity protected and except for the messages specified in
-                  clause 4.4.5, all NAS messages exchanged between the UE and the MME are
-                  sent ciphered
+                <p>T<sub>2</sub>: For protection of all RRC messages except RRC Reject message
+                  following the sent RRC Resume Request message, the UE shall
+                  derive a K<sub>NG−RAN</sub><sup>*</sup> using the target PCI, target EARFCN-DL and the
+                  KgNB/NH based on either a horizontal key derivation or a vertical
+                  key derivation as defined in clause 6.9.2.1.1 and Annex A.12. The UE
+                  shall further derive K<sub>RRCint</sub>, K<sub>RRCenc</sub>,
+                  K<sub>UPenc</sub> (optionally), and K<sub>UPint</sub> (optionally) 
+                  from the newly derived K<sub>NG−RAN</sub><sup>*</sup>. Then the UE resets
+                  all PDCP COUNTs to 0 and activates the new AS keys in PDCP layer.
                 </p>
             </div>
           </div>
