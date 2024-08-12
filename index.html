@@ -190,7 +190,8 @@
                 <p>T<sub>2</sub>: From this time onward, all NAS messages exchanged between the UE and
                   the MME are sent integrity protected and except for the messages specified in
                   clause 4.4.5, all NAS messages exchanged between the UE and the MME are
-                  sent ciphered</p>
+                  sent ciphered
+                </p>
             </div>
           </div>
           <p>
@@ -315,6 +316,22 @@
             slightly flexible strategy suggesting the processing
             of certain messages even if they fail integrity checks.
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: In case of failed integrity check (i.e. faulty or missing MAC-I) is detected
+                  after the start of integrity protection, the concerned message shall be discarded.
+                  This can happen on the UE side or on the eNB side.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: In case of failed integrity check (i.e. faulty or missing NAS-MAC) is
+                  detected after the start of NAS integrity protection the concerned message shall
+                  be discarded except for some NAS messages specified in TS 24.301 [9]. For
+                  those exceptions the MME shall take the actions · · · NAS message with faulty
+                  or missing NAS-MAC.
+                </p>
+            </div>
+          </div>
           <p>
             <b>Inconsistency to exploit:</b>  In T<sub>1</sub>, whenever there are some 
             exceptional NAS messages that can trigger further MME actions,
@@ -375,6 +392,20 @@
             contrary, the other segment claims that the only condition for
             acceptance is that the NCC value has to be different.
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: If the sent NCC value is fresh and belongs to an unused pair of NCC,
+                  NH, the gNB shall save the pair of {NCC, NH} in the current UE AS security
+                  context and shall delete the current AS key K<sub>gNB</sub>.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: The UE shall take the received NCC value and save it as stored NCC · · · .
+                  If the stored NCC value is different from the NCC value associated with the
+                  current K<sub>gNB</sub>, the UE shall delete the current AS key K<sub>gNB</sub>.
+                </p>
+            </div>
+          </div>
           <p>
             <b>Implication:</b> NCC and NH are critical parameters that are
             used to establish AS security and derive K<sub>gnb</sub>. These parameters are used
@@ -433,6 +464,20 @@
             similar behavior and state transition for different reject messages.
             Thus, it concretely verifies the conflicting suggestions about security context.
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: : #13 (Roaming not allowed in this tracking area) 
+                  The UE shall set the 5GS update status to 5U3 ROAMING NOT ALLOWED (and shall store it according
+                  to subclause5.1.3.2.2) and shall delete 5G-GUTI, last visited registered TAI, TAI list and ngKSI.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: #13 (Roaming not allowed in this tracking area) The UE shall set the
+                  5GS update status to 5U3 ROAMING NOT ALLOWED (and shall store it
+                  according to subclause5.1.3.2.2) and shall delete the list of equivalent PLMNs (if available).
+                </p>
+            </div>
+          </div>
           <p>
             <b>Inconsistency to Exploit:</b> GUTI (Globally Unique Temporary ID)
             is a kind of temporary ID used to identify UEs. Each UE has a couple
