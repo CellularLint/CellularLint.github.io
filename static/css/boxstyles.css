@@ -12,13 +12,14 @@
 .custom-text-block {
     margin-bottom: 20px;
     padding: 20px;
-    background: #ffffff; /* White background for a clean look */
+    background: linear-gradient(135deg, #e2e2e2, #ffffff); /* Subtle gradient for a more refined look */
     border-radius: 10px;
     border: 1px solid #dcdcdc; /* Light grey border for subtle separation */
+    font-size: 1em; /* Normal font size */
 }
 
 .custom-text-block h2 {
-    font-size: 1.5em;
+    font-size: 1.2em;
     margin-bottom: 10px;
     font-weight: 700;
     color: #555555; /* Medium grey for heading */
@@ -26,15 +27,13 @@
 
 .custom-text-block p {
     font-size: 1em;
-    line-height: 1em;
-    margin: 0;
-    color: #666666; /* Slightly darker grey for text */
 }
 
-.custom-text-block:nth-child(2) {
+/*.custom-text-block:nth-child(2) {
     background: #f9f9f9; /* Very light grey for variation */
 }
 
 .custom-box .custom-text-block:last-child {
     margin-bottom: 0;
 }
+*/
