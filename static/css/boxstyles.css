@@ -27,6 +27,7 @@
 
 .custom-text-block p {
     font-size: 1em;
+    line-height: 1.2em;
 }
 
 /*.custom-text-block:nth-child(2) {
