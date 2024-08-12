@@ -253,6 +253,29 @@
             and standard practice, the precondition to check the integrity
             of the received message is often neglected.
           </p>
+          <div class="custom-box">
+            <div class="custom-text-block">
+                <p>T<sub>1</sub>: The UE shall consider the USIM as invalid for EPS services and 
+                  non-EPS services until switching off or the UICC containing the USIM is removed 
+                  or the timer T3245 expires as described in clause 5.3.7a. 
+                  Additionally, the UE shall delete the list of equivalent PLMNs and enter state EMM-
+                  DEREGISTERED.NO-IMSI. If the message has been successfully integrity 
+                  checked by the NAS and the UE maintains a counter for "SIM/USIM
+                  considered invalid for GPRS services", then the UE shall set this counter to UE
+                  implementation-specific maximum value.
+                </p>
+            </div>
+            <div class="custom-text-block">
+                <p>T<sub>2</sub>: The UE shall consider the USIM as invalid for EPS 
+                  services until switching off or the UICC containing 
+                  the USIM is removed or the timer T3245 expires as
+                  described in clause 5.3.7a. The UE shall delete the list of equivalent PLMNs
+                  and shall enter the state EMM-DEREGISTERED.NO-IMSI. If the UE maintains 
+                  a counter for "SIM/USIM considered invalid for GPRS services", then
+                  the UE shall set this counter to UE implementation-specific maximum value.
+                </p>
+            </div>
+          </div>
           <p>
             <b>Inconsistency to exploit:</b> In the case of T<sub>1</sub>, the protocol specifies 
             successful integrity checking by the NAS. However, in
